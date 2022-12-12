@@ -1,0 +1,21 @@
+<?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Transaksi extends CI_Controller {
+
+    public function Tambah()
+    {
+        $isi['content']  = 'backend/transaksi/t_transaksi';
+        $isi['judul']    = 'Form Tambah Transaksi';
+        $isi['konsumen'] = $this->db->get('konsumen')->result();
+        $isi['paket'] = $this->db->get('paket')->result();
+        $this->load->view('backend/dashboard', $isi);
+    }
+
+    public function getHargaPaket()
+    {
+        $kode_paket = $this->input->post('kode_paket');
+        $data = $this->m_transaksi->getHargaPaket($kode_paket);
+        echo json_encode($data);
+    }
+}
